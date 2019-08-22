@@ -28,6 +28,7 @@ public class Dao {
     public String readRow() {
        Cursor cursor = database.query(NoteEntry.TABLE_NAME,null,null,
                 null,null,null,null);
+       //database.rawQuery("select * from notes_table",null);
        cursor.moveToLast();
        int titleIndex = cursor.getColumnIndexOrThrow(NoteEntry.COLUMN_NAME_TITLE);
        int subTitleIndex = cursor.getColumnIndexOrThrow(NoteEntry.COLUMN_NAME_SUBTITLE);
