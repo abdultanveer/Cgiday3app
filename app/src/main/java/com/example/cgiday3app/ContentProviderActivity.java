@@ -1,4 +1,4 @@
-package com.example.cgiday3app.data;
+package com.example.cgiday3app;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -32,10 +33,12 @@ static int LOADER_ID = 007;
        //Cursor dataCursor = contentResolver.query(uriSms,null,null,null,null);
 
          adapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2,  // layout for each row in the listview
+                android.R.layout.simple_list_item_1,  // layout for each row in the listview
                 null,
-                new String[]{"body","address"},
-                new int[]{android.R.id.text1,android.R.id.text2});
+                new String[]{CallLog.Calls.NUMBER},
+                        //"body","address"},
+                new int[]{android.R.id.text1});
+                        //,android.R.id.text2});
         cpListView.setAdapter(adapter);
 
 
@@ -46,8 +49,9 @@ static int LOADER_ID = 007;
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle instructions) {//2
         Uri uriSms = Uri.parse("content://sms/inbox"); //url to the inbox table in the sms db
+        Uri allCalls = Uri.parse("content://call_log/calls");
 
-        return new CursorLoader(this,uriSms,null,null,null,null);
+        return new CursorLoader(this,allCalls,null,null,null,null);
     }
 
     @Override
